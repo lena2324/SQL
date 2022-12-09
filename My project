@@ -1,0 +1,82 @@
+In this project, I made my own table with some small set of “famous people”, then made more tables about things they do and join those to create nice human readable lists.
+For example, here are types of famous people and the questions your data could answer:
+Movie stars: What movies are they in? Are they married to each other?
+
+/* Create table about the people and what they do here */
+/*My 10 top of Hot British actors*/
+
+CREATE TABLE actors (id integer primary key, name text);
+INSERT INTO actors (id, name) values (1, 'Henry Cavil');
+INSERT INTO actors (id, name) values (2, 'Tom Hardy');
+INSERT INTO actors (id, name) values (3, 'Tom Holland');
+INSERT INTO actors (id, name) values (4, 'Tom Hiddleston');
+INSERT INTO actors (id, name) values (5, 'Jude Law');
+INSERT INTO actors (id, name) values (6, 'Kit Harrington');
+INSERT INTO actors (id, name) values (7, 'Robert Pattinson');
+INSERT INTO actors (id, name) values (8, 'Sam Claflin');
+INSERT INTO actors (id, name) values (9, 'Aaron Taylor-Johnson');
+INSERT INTO actors (id, name) values (10, 'Theo James');
+
+CREATE TABLE number_roles (id integer primary key, number integer);
+INSERT INTO  number_roles (id,number) values (1,30);
+INSERT INTO  number_roles (id,number) values (2,48);
+INSERT INTO  number_roles (id,number) values (3,35);
+INSERT INTO  number_roles (id,number) values (4,29);
+INSERT INTO  number_roles (id,number) values (5,68);
+INSERT INTO  number_roles (id,number) values (6,21);
+INSERT INTO  number_roles (id,number) values (7,42);
+INSERT INTO  number_roles (id,number) values (8,28);
+INSERT INTO  number_roles (id,number) values (9,32);
+INSERT INTO  number_roles (id,number) values (10,21);
+
+CREATE TABLE family_status (id integer primary key, status text);
+
+INSERT INTO  family_status (id,status) values (1,'dating');
+INSERT INTO  family_status (id,status) values (2,'married');
+INSERT INTO  family_status (id,status) values (3,'dating');
+INSERT INTO  family_status (id,status) values (4,'engaged');
+INSERT INTO  family_status (id,status) values (5,'married');
+INSERT INTO  family_status (id,status) values (6,'married');
+INSERT INTO  family_status (id,status) values (7,'dating');
+INSERT INTO  family_status (id,status) values (8,'married');
+INSERT INTO  family_status (id,status) values (9,'married');
+INSERT INTO  family_status (id,status) values (10,'married');
+
+CREATE TABLE partners (id integer primary key, name text, occupation text);
+INSERT INTO  partners (id,name,occupation) values (1,'Natalie Viscuso', 'Entertainment & Production');
+INSERT INTO  partners (id,name,occupation) values (2,'Charlotte Riley', 'actress');
+INSERT INTO  partners (id,name,occupation) values  (3,'Zendaya', 'actress');
+INSERT INTO  partners (id,name,occupation) values (4,'Zawe Ashton','actress');
+INSERT INTO  partners (id,name,occupation) values  (5,'Phillipa Coan','Business psychologist');
+INSERT INTO  partners (id,name,occupation) values (6,'Rose Leslie','actress');
+INSERT INTO  partners (id,name,occupation) values  (7,'Suki Waterhouse', 'model');
+INSERT INTO  partners (id,name,occupation) values  (8,'Laura Haddock','actress');
+INSERT INTO  partners (id,name,occupation) values  (9,'Sam Taylor-Johnson','film maker');
+INSERT INTO  partners (id,name,occupation) values  (10,'Ruth Kearney','actress');
+
+/*Joined tables to see their partner’s names*/
+
+SELECT a.name as actors,p.name as partners
+FROM actors as a
+left JOIN partners as p
+ON a.id=p.id;
+
+/*Joined 2 tables to see the amount of roles per actor*/
+
+SELECT a.name as actors,nr.number as number_of_roles
+FROM actors as a
+JOIN number_roles as nr
+ON a.id=nr.id;
+
+/*joined 2 tables to see partners' occupation*/
+
+SELECT a.name as actor_name,p.name as partner_name,p.occupation as partner_occup
+from actors as a
+join partners p
+on a.id=p.id;
+
+/*Filtered table to see who from the partners are also actresses*/
+
+SELECT p.name as partners_actresses 
+FROM partners as p
+WHERE p.occupation = 'actress';
