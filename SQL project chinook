@@ -1,0 +1,36 @@
+# 1 Show Customers (their full names, customer ID, and country) who are not in the US.
+
+select customerid,firstname,lastname,country
+from customers
+where country !='USA';
+
+#2 Show only the Customers from Brazil.
+
+select *
+from customers
+where country ='Brazil';
+
+#3 Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country.
+
+select c.firstname,c.lastname,i.invoiceid,i.invoicedate,i.billingcountry
+from customers as c
+join invoices as i
+on c.customerId = i.CustomerId
+where i.billingCountry = 'Brazil';
+
+#4 Show the Employees who are Sales Agents.
+
+Select * from employees
+where title = 'Sales Support Agent';
+
+#5 Find a unique/distinct list of billing countries from the Invoice table.
+
+SELECT distinct billingcountry 
+FROM invoices;
+
+#6 Provide a query that shows the invoices associated with each sales agent. The resulting table should include the Sales Agent's full name.
+
+SELECT e.lastname,e.firstname,i.invoiceid
+FROM employees e
+JOIN customers c ON c.supportrepid = e.EmployeeId
+JOIN  invoices i ON i.CustomerId = c.customerid
